@@ -3,20 +3,8 @@
 [ext_resource type="Script" uid="uid://csl6w8rfajulm" path="res://scripts/game_state.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://bpshi1tjj8g1o" path="res://assets/sprites/minesweeper_tiles.png" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bwv57w26ex53r" path="res://scripts/mines_map.gd" id="3_iywne"]
+[ext_resource type="Script" uid="uid://cfx2xxg01l6ti" path="res://scripts/interactive_tile_map.gd" id="3_p57ef"]
 [ext_resource type="Script" uid="uid://c2qpk5p5gp88k" path="res://scripts/difficulty_button.gd" id="4_lbhrr"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
-texture = ExtResource("2_lbhrr")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-0:1/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_u5sy4"]
-sources/0 = SubResource("TileSetAtlasSource_p57ef")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gee14"]
 texture = ExtResource("2_lbhrr")
@@ -27,9 +15,25 @@ texture = ExtResource("2_lbhrr")
 4:0/0 = 0
 5:0/0 = 0
 0:1/0 = 0
+1:1/0 = 0
+6:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_0tnpc"]
 sources/0 = SubResource("TileSetAtlasSource_gee14")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
+texture = ExtResource("2_lbhrr")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_u5sy4"]
+sources/0 = SubResource("TileSetAtlasSource_p57ef")
 
 [node name="Node2D" type="Node2D" unique_id=892044015]
 
@@ -39,12 +43,13 @@ script = ExtResource("1_lnu2h")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
 anchor_mode = 0
 
-[node name="InteractiveTileMap" type="TileMapLayer" parent="." unique_id=1813636817]
-tile_set = SubResource("TileSet_u5sy4")
-
 [node name="MinesMap" type="TileMapLayer" parent="." unique_id=861329450]
 tile_set = SubResource("TileSet_0tnpc")
 script = ExtResource("3_iywne")
+
+[node name="InteractiveTileMap" type="TileMapLayer" parent="." unique_id=1813636817]
+tile_set = SubResource("TileSet_u5sy4")
+script = ExtResource("3_p57ef")
 
 [node name="UI" type="Control" parent="." unique_id=1012563702]
 layout_mode = 3

@@ -2,7 +2,7 @@ extends Node2D
 
 signal set_difficulty(difficulty)
 signal create_map(difficulty)
-@onready var game_map = $"../MinesMap"
+@onready var mine_map = $"../MinesMap"
 @onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum DIFFICULTY{
@@ -16,7 +16,7 @@ enum DIFFICULTY{
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_difficulty.connect(on_set_difficulty)
-	create_map.connect(game_map.create_difficulty_map)
+	create_map.connect(mine_map.create_difficulty_map)
 	pass # Replace with function body.
 
 func on_set_difficulty(difficulty: DIFFICULTY) -> void:
