@@ -19,17 +19,22 @@ func _ready() -> void:
 	create_map.connect(mine_map.create_difficulty_map)
 	pass # Replace with function body.
 
-func on_set_difficulty(difficulty: DIFFICULTY) -> void:
+func on_set_difficulty(difficulty: DIFFICULTY) -> void:	
+	mine_map.reset()
 	match difficulty:
 		DIFFICULTY.EASY:
+			camera_2d.zoom = Vector2(3.0, 3.0)
 			emit_signal("create_map", DIFFICULTY.EASY)
 			pass
 		DIFFICULTY.MEDIUM:
+			camera_2d.zoom = Vector2(3.0, 3.0)
 			emit_signal("create_map", DIFFICULTY.MEDIUM)
 			pass
 		DIFFICULTY.HARD:
+			camera_2d.zoom = Vector2(2.0, 2.0)
 			emit_signal("create_map", DIFFICULTY.HARD)
 			pass
 		DIFFICULTY.EXTREME:
+			camera_2d.zoom = Vector2(2.0, 2.0)
 			emit_signal("create_map", DIFFICULTY.EXTREME)
 			pass

@@ -1,5 +1,5 @@
 extends OptionButton
-@onready var game_state: Node2D = $"../../GameState"
+@onready var game_state: Node2D = $"../../../GameState"
 
 
 # Called when the node enters the scene tree for the first time.

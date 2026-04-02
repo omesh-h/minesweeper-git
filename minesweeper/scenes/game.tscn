@@ -17,6 +17,9 @@ texture = ExtResource("2_lbhrr")
 0:1/0 = 0
 1:1/0 = 0
 6:0/0 = 0
+0:2/0 = 0
+7:0/0 = 0
+8:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_0tnpc"]
 sources/0 = SubResource("TileSetAtlasSource_gee14")
@@ -31,33 +34,22 @@ texture = ExtResource("2_lbhrr")
 5:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+0:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_u5sy4"]
 sources/0 = SubResource("TileSetAtlasSource_p57ef")
 
 [node name="Node2D" type="Node2D" unique_id=892044015]
 
-[node name="GameState" type="Node2D" parent="." unique_id=2057898722]
-script = ExtResource("1_lnu2h")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=679363454]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
-anchor_mode = 0
-
-[node name="MinesMap" type="TileMapLayer" parent="." unique_id=861329450]
-tile_set = SubResource("TileSet_0tnpc")
-script = ExtResource("3_iywne")
-
-[node name="InteractiveTileMap" type="TileMapLayer" parent="." unique_id=1813636817]
-tile_set = SubResource("TileSet_u5sy4")
-script = ExtResource("3_p57ef")
-
-[node name="UI" type="Control" parent="." unique_id=1012563702]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1012563702]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="DifficultyButton" type="OptionButton" parent="UI" unique_id=1901903662]
+[node name="DifficultyButton" type="OptionButton" parent="CanvasLayer/UI" unique_id=1901903662]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 20.0
@@ -73,4 +65,18 @@ popup/item_3/text = "Extreme"
 popup/item_3/id = 3
 script = ExtResource("4_lbhrr")
 
-[connection signal="item_selected" from="UI/DifficultyButton" to="UI/DifficultyButton" method="_on_item_selected"]
+[node name="GameState" type="Node2D" parent="." unique_id=2057898722]
+script = ExtResource("1_lnu2h")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
+anchor_mode = 0
+
+[node name="MinesMap" type="TileMapLayer" parent="." unique_id=861329450]
+tile_set = SubResource("TileSet_0tnpc")
+script = ExtResource("3_iywne")
+
+[node name="InteractiveTileMap" type="TileMapLayer" parent="." unique_id=1813636817]
+tile_set = SubResource("TileSet_u5sy4")
+script = ExtResource("3_p57ef")
+
+[connection signal="item_selected" from="CanvasLayer/UI/DifficultyButton" to="CanvasLayer/UI/DifficultyButton" method="_on_item_selected"]
