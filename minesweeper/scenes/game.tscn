@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://df4fq4oxsrm4u"]
 
 [ext_resource type="Script" uid="uid://csl6w8rfajulm" path="res://scripts/game_state.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://ro1j503apwqe" path="res://scenes/lose_screen.tscn" id="1_p57ef"]
 [ext_resource type="Texture2D" uid="uid://bpshi1tjj8g1o" path="res://assets/sprites/minesweeper_tiles.png" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bwv57w26ex53r" path="res://scripts/mines_map.gd" id="3_iywne"]
 [ext_resource type="Script" uid="uid://cfx2xxg01l6ti" path="res://scripts/interactive_tile_map.gd" id="3_p57ef"]
@@ -41,6 +42,9 @@ sources/0 = SubResource("TileSetAtlasSource_p57ef")
 
 [node name="Node2D" type="Node2D" unique_id=892044015]
 
+[node name="LoseScreen" parent="." unique_id=2085202823 instance=ExtResource("1_p57ef")]
+visible = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=679363454]
 
 [node name="UI" type="Control" parent="CanvasLayer" unique_id=1012563702]
@@ -49,27 +53,18 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="DifficultyButton" type="OptionButton" parent="CanvasLayer/UI" unique_id=1901903662]
+[node name="DifficultyButton" type="Button" parent="CanvasLayer/UI" unique_id=1305409971]
 layout_mode = 0
-offset_right = 32.0
-offset_bottom = 20.0
-allow_reselect = true
-item_count = 4
-popup/item_0/text = "Easy"
-popup/item_0/id = 0
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "Hard"
-popup/item_2/id = 2
-popup/item_3/text = "Extreme"
-popup/item_3/id = 3
+offset_right = 97.0
+offset_bottom = 31.0
+text = "Start"
 script = ExtResource("4_lbhrr")
-
-[node name="GameState" type="Node2D" parent="." unique_id=2057898722]
-script = ExtResource("1_lnu2h")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
 anchor_mode = 0
+
+[node name="GameState" type="Node2D" parent="." unique_id=2057898722]
+script = ExtResource("1_lnu2h")
 
 [node name="MinesMap" type="TileMapLayer" parent="." unique_id=861329450]
 tile_set = SubResource("TileSet_0tnpc")
@@ -79,4 +74,4 @@ script = ExtResource("3_iywne")
 tile_set = SubResource("TileSet_u5sy4")
 script = ExtResource("3_p57ef")
 
-[connection signal="item_selected" from="CanvasLayer/UI/DifficultyButton" to="CanvasLayer/UI/DifficultyButton" method="_on_item_selected"]
+[connection signal="pressed" from="CanvasLayer/UI/DifficultyButton" to="CanvasLayer/UI/DifficultyButton" method="_on_pressed"]

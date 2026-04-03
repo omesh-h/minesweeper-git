@@ -15,6 +15,10 @@ run/main_scene="uid://df4fq4oxsrm4u"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+LevelGenerator="*uid://cbqftj6g0rwoy"
+
 [input]
 
 click_tile={

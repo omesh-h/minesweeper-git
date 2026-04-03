@@ -1,40 +1,52 @@
 extends Node2D
 
-signal set_difficulty(difficulty)
-signal create_map(difficulty)
+signal load_level
+signal update_level
 @onready var mine_map = $"../MinesMap"
 @onready var camera_2d: Camera2D = $"../Camera2D"
-
-enum DIFFICULTY{
-	EASY, #0
-	MEDIUM, #1
-	HARD, #2
-	EXTREME #3
-}
-
+@onready var lose_screen: CanvasLayer = $"../LoseScreen"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_difficulty.connect(on_set_difficulty)
-	create_map.connect(mine_map.create_difficulty_map)
+	update_camera()
+	
+	load_level.connect(_on_load_level)
+	update_level.connect(_on_update_level)
+	
+	LevelGenerator.register_layers(
+		$"../MinesMap",
+		$"../InteractiveTileMap"
+	)
+	
 	pass # Replace with function body.
 
-func on_set_difficulty(difficulty: DIFFICULTY) -> void:	
+func update_camera():
+	var margin = 10
+	
+	var grid_x = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].position.x
+	var grid_y = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].position.y
+	
+	var grid_width = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].size.x
+	var grid_height = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].size.y
+	
+	var grid_area = grid_height * grid_width
+	camera_2d.zoom = camera_2d.get_viewport().size / Vector2i(grid_width * 24, grid_height * 14)
+	print(camera_2d.get_viewport().size)
+	print(camera_2d.zoom)
+
+
+
+
+func _on_update_level() -> void:
+	LevelGenerator.create_level(LevelGenerator.current_level)
+	LevelGenerator.current_level += 1
+	emit_signal("load_level")
+
+func _on_load_level() -> void:
 	mine_map.reset()
-	match difficulty:
-		DIFFICULTY.EASY:
-			camera_2d.zoom = Vector2(3.0, 3.0)
-			emit_signal("create_map", DIFFICULTY.EASY)
-			pass
-		DIFFICULTY.MEDIUM:
-			camera_2d.zoom = Vector2(3.0, 3.0)
-			emit_signal("create_map", DIFFICULTY.MEDIUM)
-			pass
-		DIFFICULTY.HARD:
-			camera_2d.zoom = Vector2(2.0, 2.0)
-			emit_signal("create_map", DIFFICULTY.HARD)
-			pass
-		DIFFICULTY.EXTREME:
-			camera_2d.zoom = Vector2(2.0, 2.0)
-			emit_signal("create_map", DIFFICULTY.EXTREME)
-			pass
+	mine_map.create_minesweeper()
+	pass
+
+func _on_mine_revealed() -> void:
+	lose_screen.visible = true
+	pass

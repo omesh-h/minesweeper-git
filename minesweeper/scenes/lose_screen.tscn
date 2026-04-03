@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://ro1j503apwqe"]
+
+[ext_resource type="FontFile" uid="uid://dgk7tpqqp64hw" path="res://assets/fonts/Mystery Font.ttf" id="1_uglf1"]
+
+[node name="LoseScreen" type="CanvasLayer" unique_id=2085202823]
+
+[node name="Control" type="Control" parent="." unique_id=1875665530]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Control" unique_id=1062589718]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -11.5
+offset_right = 51.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_uglf1")
+theme_override_font_sizes/font_size = 20
+text = "You Blew Up!"
+horizontal_alignment = 1
+vertical_alignment = 1
