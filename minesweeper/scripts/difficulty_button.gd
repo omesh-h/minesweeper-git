@@ -1,5 +1,5 @@
 extends Button
-@onready var game_state: Node2D = $"../../../GameState"
+@export var game_state: Node2D
 
 func _on_pressed() -> void:
 	game_state.emit_signal("load_level")

@@ -1,5 +1,8 @@
 extends TileMapLayer
 
+#Generates minesweeper grid and keeps track of bombs
+
+
 @onready var interactive_tile_map: TileMapLayer = $"../InteractiveTileMap"
 @onready var game_state: Node2D = $"../GameState"
 
@@ -38,8 +41,8 @@ func _process(delta: float) -> void:
 
 
 func create_minesweeper() -> void:
-	grid = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"]
-	mines = LevelGenerator.LEVELS[LevelGenerator.current_level]["mines"]
+	grid = LevelGenerator.get_grid(LevelGenerator.current_level)
+	mines = LevelGenerator.get_mines(LevelGenerator.current_level)
 	interactive_tile_map.max_flags = mines
 	print("Creating level with " + str(mines) + " mines" )
 	create_visual_grid(grid, mines)
@@ -137,18 +140,23 @@ func reveal_tiles(cell: Vector2i) -> void:
 			reveal_tiles(neighbor_cell)
 	pass
 
+
+
+#---HELPER FUNCTIONS---#
+
 func is_empty_tile(cell: Vector2i) -> bool:
 	return get_cell_atlas_coords(cell) == Vector2i(0,0)
 
 func is_mine(cell: Vector2i) -> bool:
 	return get_cell_atlas_coords(cell) == Vector2i(1,1)
-	
 
 func get_grid_center() -> Vector2:
+	var offset = Vector2i(2, 2)
 	if not grid:
-		grid = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"]
+		grid = LevelGenerator.get_grid(LevelGenerator.current_level)
 	var start_local_pos = map_to_local(grid.position)
-	var end_local_pos = map_to_local(grid.position + grid.size)
+	var end_local_pos = map_to_local(grid.position + (grid.size + offset))
 	var local_center = (end_local_pos - start_local_pos)/2
+	print(to_global(local_center))
 	return to_global(local_center)
 	

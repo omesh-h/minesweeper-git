@@ -1,5 +1,8 @@
 extends TileMapLayer
 
+#Keeps track of input logic and tile state
+
+
 signal tile_clicked(cell)
 @onready var mines_map: TileMapLayer = $"../MinesMap"
 
@@ -28,8 +31,8 @@ func _process(delta: float) -> void:
 			
 			if first_tile:
 				if Input.is_action_just_pressed("place_flag"):
-					if can_place_flags():
-						if !is_flagged(cell):
+					if !is_flagged(cell): 
+						if can_place_flags():
 							set_cell(cell, 0, Vector2i(0, 2))
 							flag_coords.append(cell)
 					else:
@@ -38,7 +41,7 @@ func _process(delta: float) -> void:
 			
 		pass
 
-func on_tile_clicked(cell: Vector2i):
+func on_tile_clicked(cell: Vector2i): #signal func for clicked tile
 	if not first_tile:
 		first_tile = true
 		print("first tile clicked")

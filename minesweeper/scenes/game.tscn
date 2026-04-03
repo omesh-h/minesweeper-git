@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bpshi1tjj8g1o" path="res://assets/sprites/minesweeper_tiles.png" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bwv57w26ex53r" path="res://scripts/mines_map.gd" id="3_iywne"]
 [ext_resource type="Script" uid="uid://cfx2xxg01l6ti" path="res://scripts/interactive_tile_map.gd" id="3_p57ef"]
+[ext_resource type="FontFile" uid="uid://dgk7tpqqp64hw" path="res://assets/fonts/Mystery Font.ttf" id="3_u5sy4"]
 [ext_resource type="Script" uid="uid://c2qpk5p5gp88k" path="res://scripts/difficulty_button.gd" id="4_lbhrr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gee14"]
@@ -45,20 +46,37 @@ sources/0 = SubResource("TileSetAtlasSource_p57ef")
 [node name="LoseScreen" parent="." unique_id=2085202823 instance=ExtResource("1_p57ef")]
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=679363454]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1566587962]
 
 [node name="UI" type="Control" parent="CanvasLayer" unique_id=1012563702]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
 
-[node name="DifficultyButton" type="Button" parent="CanvasLayer/UI" unique_id=1305409971]
-layout_mode = 0
-offset_right = 97.0
+[node name="DifficultyButton" type="Button" parent="CanvasLayer/UI" unique_id=1305409971 node_paths=PackedStringArray("game_state")]
+layout_mode = 1
+offset_right = 46.0
 offset_bottom = 31.0
 text = "Start"
 script = ExtResource("4_lbhrr")
+game_state = NodePath("../../../GameState")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI" unique_id=624867394]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 160.0
+offset_top = 24.0
+offset_right = 536.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_u5sy4")
+theme_override_font_sizes/font_size = 21
+text = "insert #flags here"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
 

@@ -1,4 +1,6 @@
 extends Node
+#Generates and keeps track of data for grid rendering
+
 
 var mine_map_layer: TileMapLayer
 var interactive_map: TileMapLayer
@@ -28,3 +30,17 @@ func create_level(level: int):
 	LEVELS.append(
 		{"grid": grid, "mines": bombs}
 	)
+
+
+#---HELPER FUNCTIONS---#
+func get_grid(level: int) -> Rect2i: #Helper func that gets level grid by passing in the current level
+	return LEVELS[level]["grid"]
+
+func get_mines(level: int) -> int:
+	return LEVELS[level]["mines"]
+
+func get_grid_width(level: int):
+	return LEVELS[level]["grid"].size.x
+
+func get_grid_height(level: int):
+	return LEVELS[level]["grid"].size.y
