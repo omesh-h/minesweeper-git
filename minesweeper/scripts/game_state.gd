@@ -29,10 +29,8 @@ func update_camera():
 	var grid_width = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].size.x
 	var grid_height = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"].size.y
 	
-	var grid_area = grid_height * grid_width
+	camera_2d.position = mine_map.get_grid_center()
 	camera_2d.zoom = camera_2d.get_viewport().size / Vector2i(grid_width * 24, grid_height * 14)
-	print(camera_2d.get_viewport().size)
-	print(camera_2d.zoom)
 
 
 

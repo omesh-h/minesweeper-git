@@ -7,7 +7,8 @@ signal map_rendered
 signal mine_revealed
 
 var mine_coords: Array[Vector2i]
-
+var grid = Rect2i(Vector2i.ZERO, Vector2i.ZERO)
+var mines = 0
 
 const NEIGHBORS: Array[Vector2i] = [
 	Vector2i(1, 0),
@@ -37,8 +38,10 @@ func _process(delta: float) -> void:
 
 
 func create_minesweeper() -> void:
-	var grid = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"]
-	var mines = LevelGenerator.LEVELS[LevelGenerator.current_level]["mines"]
+	grid = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"]
+	mines = LevelGenerator.LEVELS[LevelGenerator.current_level]["mines"]
+	interactive_tile_map.max_flags = mines
+	print("Creating level with " + str(mines) + " mines" )
 	create_visual_grid(grid, mines)
 
 func create_visual_grid(grid: Rect2i, mines: int) -> void:
@@ -46,8 +49,8 @@ func create_visual_grid(grid: Rect2i, mines: int) -> void:
 	clear()
 	interactive_tile_map.clear()
 	#take x and y values of rectangle and then set cell (create minemap)
-	for x in range(1, abs(grid.size.x)):
-		for y in range(1, abs(grid.size.y)):
+	for x in range(1, abs(grid.size.x) + 1):
+		for y in range(1, abs(grid.size.y) + 1):
 			interactive_tile_map.set_cell(Vector2i(x, y), 0, Vector2i(0, 1))
 			
 			#enable first click safety
@@ -68,26 +71,25 @@ func place_mines(clicked_cell: Vector2i) -> void:
 		safe_zone.append(clicked_cell + offset)
 	
 	#print(safe_zone)
-	
-	while mine_coords.size() < LevelGenerator.LEVELS[0]["mines"]:
-		print("placing mines")
-		for i in range(0, LevelGenerator.LEVELS[0]["mines"]):
-			var cell = Vector2i(
-				randi_range(1, abs(LevelGenerator.LEVELS[0]["grid"].size.x - 1)),
-				randi_range(1, abs(LevelGenerator.LEVELS[0]["grid"].size.y - 1))
-			)
-			#skip over the tiles that were already revealed by the first click 
-			#makes sure theres no dupes as well
-			if cell in safe_zone or cell in mine_coords:
-				continue
-			
-			set_cell(cell, 0, Vector2i(1, 1))
-			mine_coords.append(cell)
-			#print("Bomb Coords: " + str(bomb_coords))
+	while len(mine_coords) < mines:
+		var cell = Vector2i(
+			randi_range(1, abs(grid.size.x)),
+			randi_range(1, abs(grid.size.y))
+		)
+		#skip over the tiles that were already revealed by the first click 
+		#makes sure theres no dupes as well
+		if cell in safe_zone or cell in mine_coords:
+			continue
+		
+		set_cell(cell, 0, Vector2i(1, 1))
+		mine_coords.append(cell)
+		#print("Bomb Coords: " + str(bomb_coords))
+		
+	print(len(mine_coords))
 
 func generate_numbers() -> void:
-	for x in range(1, abs(LevelGenerator.LEVELS[0]["grid"].size.x)):
-		for y in range(1, abs(LevelGenerator.LEVELS[0]["grid"].size.y)):
+	for x in range(1, abs(grid.size.x) + 1):
+		for y in range(1, abs(grid.size.y) + 1):
 			var bomb_count = check_neighbors(Vector2i(x, y))
 			
 			#skip over bomb coordinates and tiles that were revealed in the first click
@@ -98,6 +100,8 @@ func generate_numbers() -> void:
 
 
 func reset() -> void:
+	grid = Rect2i(Vector2i.ZERO, Vector2i.ZERO)
+	mines = 0
 	mine_coords.clear()
 	revealed_tiles.clear()
 	interactive_tile_map.first_tile = false
@@ -138,3 +142,13 @@ func is_empty_tile(cell: Vector2i) -> bool:
 
 func is_mine(cell: Vector2i) -> bool:
 	return get_cell_atlas_coords(cell) == Vector2i(1,1)
+	
+
+func get_grid_center() -> Vector2:
+	if not grid:
+		grid = LevelGenerator.LEVELS[LevelGenerator.current_level]["grid"]
+	var start_local_pos = map_to_local(grid.position)
+	var end_local_pos = map_to_local(grid.position + grid.size)
+	var local_center = (end_local_pos - start_local_pos)/2
+	return to_global(local_center)
+	

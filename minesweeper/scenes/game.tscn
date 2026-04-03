@@ -61,7 +61,6 @@ text = "Start"
 script = ExtResource("4_lbhrr")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1216408172]
-anchor_mode = 0
 
 [node name="GameState" type="Node2D" parent="." unique_id=2057898722]
 script = ExtResource("1_lnu2h")

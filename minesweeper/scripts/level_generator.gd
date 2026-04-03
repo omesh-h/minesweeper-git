@@ -8,7 +8,7 @@ var current_level: int = 0
 
 var LEVELS: Array[Dictionary] = [
 	#keeps track of grids and bombs
-	{"grid": Rect2i(1, 1, 10, 10), "mines": 16}, #LEVEL 0
+	{"grid": Rect2i(1, 1, 10, 10), "mines": 18}, #LEVEL 0
 ]
 
 func register_layers(mine_path, interactive_path):
